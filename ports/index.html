@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Main</title>
+  <script src="main.js"></script>
+</head>
+
+<body>
+  <div id="elm"></div>
+
+  <script>
+  var app = Elm.Main.init({
+    node: document.getElementById('elm')
+  });
+
+  app.ports.setProfile.subscribe(function(id) {
+    console.log("Elm is asking for saving Profile with id: " + id)
+
+    var lastAccess = localStorage.getItem("lastAccess");
+
+    localStorage.setItem("profile", id);
+    localStorage.setItem("lastAccess", new Date().toString())
+
+    if (lastAccess) {
+      console.log("Sending lastAccess to Elm: " + lastAccess)
+      app.ports.onLastAccess.send(lastAccess);
+    }
+  });
+
+  </script>
+</body>
+</html>
