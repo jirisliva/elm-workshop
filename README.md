@@ -1,30 +1,46 @@
 # Elm Workshop
 
-## Install Elm compiler
+## Contents
 
-1. Installer (Windows, macOS, Linux)
-    - https://elm-lang.org
+- Basics - Elm Architecture, Syntax, Packages
+- Hello World
+- Modules
+- Commands
+- HTTP client and REST
+- Decoders
+- Tasks - Chaning REST requests
+- JavaScript interoperability - Ports, WebComponents
+
+## Install
+
+### Elm Compiler
+
+1. Installer (Windows, macOS, Linux) - https://elm-lang.org
 
 2. NPM package
 
-        npm install -g elm
+		npm install -g elm
 
-## Tools
+### Elm Format
+1. NPM package
 
-1. elm-live
+		npm install -g elm-format
 
-        npm install -g elm-live
+2. Binaries on [github.com/avh4/elm-format](https://github.com/avh4/elm-format/releases) 
 
-2. ellie
-    - https://ellie-app.com
+### elm-live
 
-## Start
+	npm install -g elm-live
 
-### Create new Elm project
+### Editor Plugins
 
-    elm init
+- Visual Studio Code, [Krzysztof-Cieslak/vscode-elm](https://marketplace.visualstudio.com/items?itemName=sbrink.elm)
+- IntelliJ IDEA, [klazuka/intellij-elm](https://plugins.jetbrains.com/plugin/10268-elm)
+- Sublime Text, [Elm Language Support](https://packagecontrol.io/packages/Elm%20Language%20Support)
 
-### Fast forward ...
+- ellie, https://ellie-app.com
+
+## Start with "Hello World"
 
     git clone git@github.com:jirisliva/elm-workshop.git
 
@@ -32,8 +48,7 @@
 
     elm make src/Main.elm
 
-### Syntax
+### Elm Syntax
 
-- [Learn X in Y minutes](https://learnxinyminutes.com/docs/elm/)
-  - In Czech on [zdrojak.cz](https://www.zdrojak.cz/clanky/rychly-prehled-elm/)
+- [Learn X in Y minutes](https://learnxinyminutes.com/docs/elm/) (in czech: [zdrojak.cz](https://www.zdrojak.cz/clanky/rychly-prehled-elm/))
 

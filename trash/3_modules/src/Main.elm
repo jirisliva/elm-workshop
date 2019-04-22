@@ -1,11 +1,8 @@
-module Main exposing (main)
+module Main exposing (Model, Msg(..), init, main, update, view)
 
 import Browser
+import Counter
 import Html exposing (..)
-import Html.Attributes exposing (type_, value)
-import Html.Events exposing (..)
-import Json.Decode as Decode
-import Names
 
 
 main =
@@ -18,20 +15,20 @@ main =
 
 type alias Model =
     { greetings : String
-    , names : Names.Model
+    , counter : Counter.Model
     }
 
 
 init : Model
 init =
     { greetings = "Hello World"
-    , names = Names.init
+    , counter = Counter.init
     }
 
 
 type Msg
     = NoOp
-    | NamesMsg Names.Msg
+    | CounterMsg Counter.Msg
 
 
 update : Msg -> Model -> Model
@@ -40,17 +37,17 @@ update msg model =
         NoOp ->
             model
 
-        NamesMsg subMsg ->
+        CounterMsg subMsg ->
             let
-                newNames =
-                    Names.update subMsg model.names
+                ( subModel, externalMsg ) =
+                    Counter.update subMsg model.counter
             in
-            { model | names = newNames }
+            { model | counter = subModel }
 
 
 view : Model -> Html Msg
 view model =
     div []
         [ h1 [] [ text model.greetings ]
-        , Html.map NamesMsg (Names.view model.names)
+        , Html.map CounterMsg (Counter.view model.counter)
         ]

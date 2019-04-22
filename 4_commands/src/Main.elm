@@ -1,11 +1,12 @@
 module Main exposing (Model, Msg(..), init, main, update, view)
 
 import Browser
-import Colors exposing (Color)
-import Counter
 import Html exposing (..)
 import Html.Events exposing (onClick)
 import Http
+import Names
+import Task
+import Time exposing (Month(..))
 
 
 main =
@@ -24,23 +25,26 @@ subscriptions _ =
 
 type alias Model =
     { greetings : String
-    , counter : Counter.Model
-    , colors : List Color
+    , names : Names.Model
+    , time : Maybe Time.Posix
     }
 
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( Model "Hello World" Counter.init []
+    ( { greetings = "Hello"
+      , names = Names.init []
+      , time = Nothing
+      }
     , Cmd.none
     )
 
 
 type Msg
     = NoOp
-    | CounterMsg Counter.Msg
-    | GetColors
-    | GetColorsResult (Result Http.Error (List Color))
+    | NamesMsg Names.Msg
+    | GetTime
+    | CurrentTime Time.Posix
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -49,29 +53,16 @@ update msg model =
         NoOp ->
             ( model, Cmd.none )
 
-        CounterMsg subMsg ->
-            ( { model | counter = Counter.update subMsg model.counter }
+        NamesMsg subMsg ->
+            ( { model | names = Names.update subMsg model.names }
             , Cmd.none
             )
 
-        GetColors ->
-            ( model
-            , Colors.get GetColorsResult
-            )
+        GetTime ->
+            ( model, Time.now |> Task.perform CurrentTime )
 
-        GetColorsResult result ->
-            let
-                colors =
-                    case result of
-                        Ok fetchedColors ->
-                            fetchedColors
-
-                        Err _ ->
-                            []
-            in
-            ( { model | colors = colors }
-            , Cmd.none
-            )
+        CurrentTime time ->
+            ( { model | time = Just time }, Cmd.none )
 
 
 view : Model -> Browser.Document Msg
@@ -80,21 +71,68 @@ view model =
     , body =
         [ div []
             [ h1 [] [ text model.greetings ]
-            , Html.map CounterMsg (Counter.view model.counter)
-            , button [ onClick GetColors ] [ text "Get Colors" ]
-            , viewColors model.colors
+            , button [ onClick GetTime ] [ text "Get Time" ]
+            , viewTime model.time
+            , Html.map NamesMsg (Names.view model.names)
             ]
         ]
     }
 
 
-viewColors : List Color -> Html Msg
-viewColors colors =
-    table [] (List.map viewColor colors)
+viewTime : Maybe Time.Posix -> Html Msg
+viewTime maybeTime =
+    case maybeTime of
+        Just time ->
+            div [] [ text (timeToString time) ]
+
+        Nothing ->
+            text ""
 
 
-viewColor : Color -> Html Msg
-viewColor color =
-    tr []
-        [ td [] [ text color ]
-        ]
+timeToString : Time.Posix -> String
+timeToString time =
+    monthToString (Time.toMonth Time.utc time)
+        ++ " "
+        ++ String.fromInt (Time.toDay Time.utc time)
+        ++ " "
+        ++ String.fromInt (Time.toYear Time.utc time)
+
+
+monthToString : Time.Month -> String
+monthToString month =
+    case month of
+        Jan ->
+            "Januar"
+
+        Feb ->
+            "Februar"
+
+        Mar ->
+            "March"
+
+        Apr ->
+            "April"
+
+        May ->
+            "May"
+
+        Jun ->
+            "June"
+
+        Jul ->
+            "July"
+
+        Aug ->
+            "August"
+
+        Sep ->
+            "September"
+
+        Oct ->
+            "October"
+
+        Nov ->
+            "November"
+
+        Dec ->
+            "December"
