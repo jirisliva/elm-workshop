@@ -1,4 +1,4 @@
-module Colors exposing (Color, fetch)
+module Color exposing (Color, fetch)
 
 import Http
 import Json.Decode as Decode
