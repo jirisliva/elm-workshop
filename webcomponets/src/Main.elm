@@ -29,7 +29,7 @@ type alias Model =
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( Model "Hello World"
+    ( Model "WebComponents Demo"
     , Cmd.none
     )
 
@@ -53,7 +53,7 @@ view : Model -> Browser.Document Msg
 view model =
     { title = "Demo"
     , body =
-        [ h1 [] [ text model.greetings ]
+        [ h3 [] [ text model.greetings ]
         , node "custom-editor"
             [ property "editorValue" (Encode.string model.greetings)
             , on "editorChanged" editorChangedDecoder

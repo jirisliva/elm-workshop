@@ -5331,7 +5331,7 @@ var elm$core$Platform$Cmd$batch = _Platform_batch;
 var elm$core$Platform$Cmd$none = elm$core$Platform$Cmd$batch(_List_Nil);
 var author$project$Main$init = function (_n0) {
 	return _Utils_Tuple2(
-		author$project$Main$Model('Hello World'),
+		author$project$Main$Model('WebComponents Demo'),
 		elm$core$Platform$Cmd$none);
 };
 var elm$core$Platform$Sub$batch = _Platform_batch;
@@ -5442,7 +5442,7 @@ var elm$virtual_dom$VirtualDom$toHandlerInt = function (handler) {
 			return 3;
 	}
 };
-var elm$html$Html$h1 = _VirtualDom_node('h1');
+var elm$html$Html$h3 = _VirtualDom_node('h3');
 var elm$virtual_dom$VirtualDom$node = function (tag) {
 	return _VirtualDom_node(
 		_VirtualDom_noScript(tag));
@@ -5475,7 +5475,7 @@ var author$project$Main$view = function (model) {
 		body: _List_fromArray(
 			[
 				A2(
-				elm$html$Html$h1,
+				elm$html$Html$h3,
 				_List_Nil,
 				_List_fromArray(
 					[

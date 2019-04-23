@@ -32,7 +32,7 @@ class CustomEditor extends HTMLElement {
         const wrapper = document.createElement("div")
         wrapper.style.padding = "5px"
         wrapper.style.background = "lightblue"
-        wrapper.style.width = "220px"
+        wrapper.style.width = "320px"
         shadow.appendChild(wrapper)
         return wrapper
     }
