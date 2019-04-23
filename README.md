@@ -41,8 +41,6 @@
 - IntelliJ IDEA, [klazuka/intellij-elm](https://plugins.jetbrains.com/plugin/10268-elm)
 - Sublime Text, [Elm Language Support](https://packagecontrol.io/packages/Elm%20Language%20Support)
 
-- ellie, https://ellie-app.com
-
 ## Start with "Hello World"
 
     git clone git@github.com:jirisliva/elm-workshop.git
