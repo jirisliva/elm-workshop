@@ -17,15 +17,19 @@ main =
 
 type alias Model =
     { greetings : String
-    , names : List String
+    , users : List User
     , newName : String
     }
+
+
+type alias User =
+    String
 
 
 init : Model
 init =
     { greetings = "Hello World"
-    , names = [ "Homer", "Maggie", "Bart", "Lisa" ]
+    , users = [ "Homer", "Maggie", "Bart", "Lisa" ]
     , newName = ""
     }
 
@@ -33,7 +37,7 @@ init =
 type Msg
     = NoOp
     | NameInput String
-    | AddName
+    | AddUser
 
 
 update : Msg -> Model -> Model
@@ -45,9 +49,9 @@ update msg model =
         NameInput name ->
             { model | newName = name }
 
-        AddName ->
+        AddUser ->
             { model
-                | names = model.newName :: model.names
+                | users = model.newName :: model.users
                 , newName = ""
             }
 
@@ -57,14 +61,14 @@ view model =
     div []
         [ h1 [] [ text model.greetings ]
         , input [ onInput NameInput, value model.newName ] []
-        , button [ onClick AddName ] [ text "Add" ]
-        , div [] (List.map viewName model.names)
+        , button [ onClick AddUser ] [ text "Add" ]
+        , div [] (List.map viewUser model.users)
         ]
 
 
-viewName : String -> Html Msg
-viewName name =
-    Html.p [] [ text name ]
+viewUser : User -> Html Msg
+viewUser user =
+    Html.p [] [ text user ]
 
 
 onKeyDown : (Int -> Msg) -> Html.Attribute Msg

@@ -1,7 +1,16 @@
 {
-  "colors": [
-    { "id": 1, "name": "Red", "code": "#FF0000" },
-    { "id": 2, "name": "Green", "code": "#00FF00" },
-    { "id": 3, "name": "Blue", "code": "#0000FF" }
-  ]
+    "users": [
+        {
+            "name": "Lisa",
+            "age": 7
+        },
+        {
+            "name": "Homer",
+            "age": 40
+        },
+        {
+            "name": "Marge",
+            "age": 35
+        }
+    ]
 }

@@ -1,4 +1,4 @@
-module Colors exposing (Color, get)
+module Colors exposing (Color, fetch)
 
 import Http
 import Json.Decode as Decode
@@ -14,12 +14,8 @@ type alias Color =
     }
 
 
-type alias ColorResult =
-    Result Http.Error (List Color)
-
-
-get : Task Http.Error (List Color)
-get =
+fetch : Task Http.Error (List Color)
+fetch =
     Http.task
         { method = "GET"
         , headers = []

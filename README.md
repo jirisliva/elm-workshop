@@ -5,17 +5,16 @@
 - Basics - Elm Architecture, Syntax, Packages
 - Hello World
 - Modules
-- Commands
-- HTTP client and REST
+- Commands (HTTP client and REST, ...)
 - Decoders
-- Tasks - Chaning REST requests
+- Tasks (Chaning REST requests, ...)
 - JavaScript interoperability - Ports, WebComponents
 
-## Install
+## Install Prerequisites
 
 ### Elm Compiler
 
-1. Installer (Windows, macOS, Linux) - https://elm-lang.org
+1. Installer from https://elm-lang.org (Windows, macOS, Linux) or
 
 2. NPM package
 
@@ -28,9 +27,13 @@
 
 2. Binaries on [github.com/avh4/elm-format](https://github.com/avh4/elm-format/releases) 
 
-### elm-live
+### elm-live (optional)
 
 	npm install -g elm-live
+
+### json-server
+
+	npm install -g json-server
 
 ### Editor Plugins
 
@@ -46,9 +49,18 @@
 
     cd 1_hello
 
-    elm make src/Main.elm
+    elm make src/Main.elm --debug
 
-### Elm Syntax
+or with reactor
 
+	elm reactor
+
+or with `elm-live`
+
+	elm-live src/Main.elm -- --debug
+
+## Resources
+- [Elm Syntax](https://elm-lang.org/docs/syntax)
+- [Official Guide](https://guide.elm-lang.org)
 - [Learn X in Y minutes](https://learnxinyminutes.com/docs/elm/) (in czech: [zdrojak.cz](https://www.zdrojak.cz/clanky/rychly-prehled-elm/))
 

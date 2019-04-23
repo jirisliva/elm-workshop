@@ -5,7 +5,7 @@ import Html exposing (..)
 import Html.Attributes exposing (type_, value)
 import Html.Events exposing (..)
 import Json.Decode as Decode
-import Names
+import Users
 
 
 main =
@@ -18,20 +18,20 @@ main =
 
 type alias Model =
     { greetings : String
-    , names : Names.Model
+    , users : Users.Model
     }
 
 
 init : Model
 init =
     { greetings = "Hello World"
-    , names = Names.init
+    , users = Users.init
     }
 
 
 type Msg
     = NoOp
-    | NamesMsg Names.Msg
+    | UsersMsg Users.Msg
 
 
 update : Msg -> Model -> Model
@@ -40,17 +40,17 @@ update msg model =
         NoOp ->
             model
 
-        NamesMsg subMsg ->
+        UsersMsg subMsg ->
             let
-                newNames =
-                    Names.update subMsg model.names
+                usersModel =
+                    Users.update subMsg model.users
             in
-            { model | names = newNames }
+            { model | users = usersModel }
 
 
 view : Model -> Html Msg
 view model =
     div []
         [ h1 [] [ text model.greetings ]
-        , Html.map NamesMsg (Names.view model.names)
+        , Html.map UsersMsg (Users.view model.users)
         ]

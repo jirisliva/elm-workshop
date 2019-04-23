@@ -31,7 +31,7 @@ type alias Model =
 init : () -> ( Model, Cmd Msg )
 init _ =
     ( { greetings = "Hello"
-      , users = Users.init
+      , users = Users.init []
       }
     , Cmd.none
     )
@@ -40,6 +40,8 @@ init _ =
 type Msg
     = NoOp
     | UsersMsg Users.Msg
+    | GetUsers
+    | GotUsers (Result Http.Error (List String))
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -49,13 +51,37 @@ update msg model =
             ( model, Cmd.none )
 
         UsersMsg subMsg ->
-            let
-                ( usersModel, usersCmds ) =
-                    Users.update subMsg model.users
-            in
-            ( { model | users = usersModel }
-            , Cmd.map UsersMsg usersCmds
+            ( { model | users = Users.update subMsg model.users }
+            , Cmd.none
             )
+
+        GetUsers ->
+            ( model, fetch )
+
+        GotUsers result ->
+            let
+                users =
+                    case result of
+                        Ok fetchedUsers ->
+                            fetchedUsers
+
+                        Err _ ->
+                            []
+
+                -- users =
+                --     result |> Result.withDefault []
+            in
+            ( { model | users = Users.init users }
+            , Cmd.none
+            )
+
+
+fetch : Cmd Msg
+fetch =
+    Http.get
+        { url = "http://localhost:3000/users"
+        , expect = Http.expectJson GotUsers (Decode.list Decode.string)
+        }
 
 
 view model =
@@ -63,6 +89,7 @@ view model =
     , body =
         [ div []
             [ h1 [] [ text model.greetings ]
+            , button [ onClick GetUsers ] [ text "Load" ]
             , Html.map UsersMsg (Users.view model.users)
             ]
         ]

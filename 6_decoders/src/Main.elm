@@ -1,11 +1,11 @@
 module Main exposing (Model, Msg(..), init, main, update, view)
 
 import Browser
-import Colors exposing (Color)
-import Counter
 import Html exposing (..)
 import Html.Events exposing (onClick)
 import Http
+import Json.Decode as Decode
+import Users
 
 
 main =
@@ -24,23 +24,22 @@ subscriptions _ =
 
 type alias Model =
     { greetings : String
-    , counter : Counter.Model
-    , colors : List Color
+    , users : Users.Model
     }
 
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( Model "Hello World" Counter.init []
+    ( { greetings = "Hello"
+      , users = Users.init
+      }
     , Cmd.none
     )
 
 
 type Msg
     = NoOp
-    | CounterMsg Counter.Msg
-    | GetColors
-    | GetColorsResult (Result Http.Error (List Color))
+    | UsersMsg Users.Msg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -49,54 +48,22 @@ update msg model =
         NoOp ->
             ( model, Cmd.none )
 
-        CounterMsg subMsg ->
-            ( { model | counter = Counter.update subMsg model.counter }
-            , Cmd.none
-            )
-
-        GetColors ->
-            ( model
-            , Colors.get GetColorsResult
-            )
-
-        GetColorsResult result ->
+        UsersMsg subMsg ->
             let
-                colors =
-                    case result of
-                        Ok fetchedColors ->
-                            fetchedColors
-
-                        Err _ ->
-                            []
+                ( usersModel, usersCmds ) =
+                    Users.update subMsg model.users
             in
-            ( { model | colors = colors }
-            , Cmd.none
+            ( { model | users = usersModel }
+            , Cmd.map UsersMsg usersCmds
             )
 
 
-view : Model -> Browser.Document Msg
 view model =
     { title = "Demo"
     , body =
         [ div []
             [ h1 [] [ text model.greetings ]
-            , Html.map CounterMsg (Counter.view model.counter)
-            , button [ onClick GetColors ] [ text "Get Colors" ]
-            , viewColors model.colors
+            , Html.map UsersMsg (Users.view model.users)
             ]
         ]
     }
-
-
-viewColors : List Color -> Html Msg
-viewColors colors =
-    table [] (List.map viewColor colors)
-
-
-viewColor : Color -> Html Msg
-viewColor color =
-    tr []
-        [ td [] [ text (String.fromInt color.id) ]
-        , td [] [ text color.name ]
-        , td [] [ text color.code ]
-        ]
