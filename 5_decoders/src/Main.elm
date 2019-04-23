@@ -5,6 +5,7 @@ import Html exposing (..)
 import Html.Events exposing (onClick)
 import Http
 import Json.Decode as Decode
+import Json.Decode.Pipeline exposing (required)
 import UserList exposing (User)
 
 
@@ -65,7 +66,11 @@ update msg model =
                         Ok fetchedUsers ->
                             fetchedUsers
 
-                        Err _ ->
+                        Err error ->
+                            let
+                                _ =
+                                    Debug.log "Users fetch failed" error
+                            in
                             []
             in
             ( { model | users = UserList.init users }
@@ -77,8 +82,22 @@ fetch : Cmd Msg
 fetch =
     Http.get
         { url = "http://localhost:3000/users"
-        , expect = Http.expectJson GotUsers (Decode.list Decode.string)
+        , expect = Http.expectJson GotUsers (Decode.list userDecoder)
         }
+
+
+userDecoder : Decode.Decoder User
+userDecoder =
+    Decode.map2 User
+        (Decode.field "name" Decode.string)
+        (Decode.field "age" Decode.int)
+
+
+userDecoder2 : Decode.Decoder User
+userDecoder2 =
+    Decode.succeed User
+        |> required "name" Decode.string
+        |> required "age" Decode.int
 
 
 view model =

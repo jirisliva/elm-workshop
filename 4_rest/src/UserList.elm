@@ -1,10 +1,8 @@
-module Users exposing (Model, Msg(..), init, update, view)
+module UserList exposing (Model, Msg(..), User, init, update, view)
 
-import Browser
 import Html exposing (..)
-import Html.Attributes exposing (type_, value)
+import Html.Attributes exposing (value)
 import Html.Events exposing (..)
-import Json.Decode as Decode
 
 
 type alias Model =
@@ -17,9 +15,9 @@ type alias User =
     String
 
 
-init : Model
-init =
-    { users = [ "Homer", "Maggie", "Bart", "Lisa" ]
+init : List String -> Model
+init names =
+    { users = names
     , newName = ""
     }
 
@@ -47,10 +45,10 @@ view model =
     div []
         [ input [ onInput NameInput, value model.newName ] []
         , button [ onClick AddUser ] [ text "Add" ]
-        , div [] (List.map viewUser model.users)
+        , div [] (List.map viewName model.users)
         ]
 
 
 viewUser : User -> Html Msg
 viewUser user =
-    Html.p [] [ text user ]
+    Html.p [] [ text name ]

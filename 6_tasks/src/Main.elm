@@ -2,9 +2,6 @@ module Main exposing (Model, Msg(..), init, main, update, view)
 
 import Browser
 import Html exposing (..)
-import Html.Events exposing (onClick)
-import Http
-import Json.Decode as Decode
 import Users
 
 

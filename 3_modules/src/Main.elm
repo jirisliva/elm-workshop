@@ -2,10 +2,7 @@ module Main exposing (main)
 
 import Browser
 import Html exposing (..)
-import Html.Attributes exposing (type_, value)
-import Html.Events exposing (..)
-import Json.Decode as Decode
-import Users
+import UserList
 
 
 main =
@@ -18,20 +15,20 @@ main =
 
 type alias Model =
     { greetings : String
-    , users : Users.Model
+    , users : UserList.Model
     }
 
 
 init : Model
 init =
     { greetings = "Hello World"
-    , users = Users.init
+    , users = UserList.init
     }
 
 
 type Msg
     = NoOp
-    | UsersMsg Users.Msg
+    | UserListMsg UserList.Msg
 
 
 update : Msg -> Model -> Model
@@ -40,17 +37,17 @@ update msg model =
         NoOp ->
             model
 
-        UsersMsg subMsg ->
+        UserListMsg subMsg ->
             let
-                usersModel =
-                    Users.update subMsg model.users
+                userListModel =
+                    UserList.update subMsg model.users
             in
-            { model | users = usersModel }
+            { model | users = userListModel }
 
 
 view : Model -> Html Msg
 view model =
     div []
         [ h1 [] [ text model.greetings ]
-        , Html.map UsersMsg (Users.view model.users)
+        , Html.map UserListMsg (UserList.view model.users)
         ]

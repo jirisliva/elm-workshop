@@ -3,7 +3,6 @@ module Main exposing (Model, Msg(..), init, main, update, view)
 import Browser
 import Html exposing (..)
 import Html.Events exposing (onClick)
-import Http
 import Names
 import Task
 import Time exposing (Month(..))
