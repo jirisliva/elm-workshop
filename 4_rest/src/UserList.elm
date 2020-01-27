@@ -45,10 +45,10 @@ view model =
     div []
         [ input [ onInput NameInput, value model.newName ] []
         , button [ onClick AddUser ] [ text "Add" ]
-        , div [] (List.map viewName model.users)
+        , div [] (List.map viewUser model.users)
         ]
 
 
 viewUser : User -> Html Msg
 viewUser user =
-    Html.p [] [ text name ]
+    Html.p [] [ text user ]

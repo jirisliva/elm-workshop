@@ -14,7 +14,7 @@
 
 ### Elm Compiler
 
-1. Installer from https://elm-lang.org (Windows, macOS, Linux) or
+1. Installer from [https://elm-lang.org](https://guide.elm-lang.org/install/elm.html) (Windows, macOS, Linux) or
 
 2. NPM package
 

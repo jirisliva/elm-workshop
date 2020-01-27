@@ -3,6 +3,7 @@ module Main exposing (Model, Msg(..), init, main, update, view)
 import Browser
 import Html exposing (..)
 import Html.Events exposing (onClick)
+import Html.Attributes exposing (style)
 import Http
 import Json.Decode as Decode
 import Json.Decode.Pipeline exposing (required)
@@ -103,7 +104,7 @@ userDecoder2 =
 view model =
     { title = "Demo"
     , body =
-        [ div []
+        [ div [style "padding" "10px" ]
             [ h1 [] [ text model.greetings ]
             , button [ onClick GetUsers ] [ text "Load" ]
             , Html.map UsersMsg (UserList.view model.users)

@@ -99,10 +99,10 @@ update msg model =
 view model =
     { title = "Demo"
     , body =
-        [ div []
+        [ div [ style "padding" "20px"]
             [ h1 [] [ text model.greetings ]
             , button [ onClick FetchData ] [ text "Load Data" ]
-            , div [ style "display" "flex" ]
+            , div [ style "display" "flex" , style "width" "60%"]
                 [ Html.map UsersMsg (UserList.view model.users)
                 , viewColors model.colors
                 ]
