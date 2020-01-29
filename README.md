@@ -21,11 +21,12 @@
 		npm install -g elm
 
 ### Elm Format
-1. NPM package
+1. Binaries on [github.com/avh4/elm-format](https://github.com/avh4/elm-format/releases) 
+
+2. NPM package
 
 		npm install -g elm-format
 
-2. Binaries on [github.com/avh4/elm-format](https://github.com/avh4/elm-format/releases) 
 
 ### elm-live (optional)
 
@@ -56,6 +57,9 @@ or with reactor
 or with `elm-live`
 
 	elm-live src/Main.elm -- --debug
+
+or exapmle on [Ellie-app](https://ellie-app.com/7ThBMQ54Dhja1).
+
 
 ## Resources
 - [Elm Syntax](https://elm-lang.org/docs/syntax)
