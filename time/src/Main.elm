@@ -8,6 +8,7 @@ import Task
 import Time exposing (Month(..))
 
 
+main : Program () Model Msg
 main =
     Browser.document
         { init = init

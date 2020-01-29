@@ -6,7 +6,7 @@ import Html.Attributes exposing (type_, value)
 import Html.Events exposing (..)
 import Json.Decode as Decode
 
-
+main : Program () Model Msg
 main =
     Browser.sandbox
         { init = init

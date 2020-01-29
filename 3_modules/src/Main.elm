@@ -5,6 +5,7 @@ import Html exposing (..)
 import UserList
 
 
+main : Program () Model Msg
 main =
     Browser.sandbox
         { init = init

@@ -2,13 +2,14 @@ module Main exposing (Model, Msg(..), init, main, update, view)
 
 import Browser
 import Html exposing (..)
-import Html.Events exposing (onClick)
 import Html.Attributes exposing (style)
+import Html.Events exposing (onClick)
 import Http
 import Json.Decode as Decode
 import UserList exposing (User)
 
 
+main : Program () Model Msg
 main =
     Browser.document
         { init = init

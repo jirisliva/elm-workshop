@@ -2,14 +2,15 @@ module Main exposing (Model, Msg(..), init, main, update, view)
 
 import Browser
 import Html exposing (..)
-import Html.Events exposing (onClick)
 import Html.Attributes exposing (style)
+import Html.Events exposing (onClick)
 import Http
 import Json.Decode as Decode
 import Json.Decode.Pipeline exposing (required)
 import UserList exposing (User)
 
 
+main : Program () Model Msg
 main =
     Browser.document
         { init = init
@@ -104,7 +105,7 @@ userDecoder2 =
 view model =
     { title = "Demo"
     , body =
-        [ div [style "padding" "10px" ]
+        [ div [ style "padding" "10px" ]
             [ h1 [] [ text model.greetings ]
             , button [ onClick GetUsers ] [ text "Load" ]
             , Html.map UsersMsg (UserList.view model.users)

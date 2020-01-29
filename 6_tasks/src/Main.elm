@@ -11,6 +11,7 @@ import User exposing (User)
 import UserList
 
 
+main : Program () Model Msg
 main =
     Browser.document
         { init = init
@@ -99,10 +100,10 @@ update msg model =
 view model =
     { title = "Demo"
     , body =
-        [ div [ style "padding" "20px"]
+        [ div [ style "padding" "20px" ]
             [ h1 [] [ text model.greetings ]
             , button [ onClick FetchData ] [ text "Load Data" ]
-            , div [ style "display" "flex" , style "width" "60%"]
+            , div [ style "display" "flex", style "width" "60%" ]
                 [ Html.map UsersMsg (UserList.view model.users)
                 , viewColors model.colors
                 ]

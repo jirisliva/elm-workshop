@@ -6,6 +6,7 @@ import Html.Attributes exposing (type_)
 import Html.Events exposing (..)
 
 
+main : Program () Model Msg
 main =
     Browser.sandbox
         { init = init
